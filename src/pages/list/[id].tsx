@@ -96,17 +96,6 @@ export default function List({
             width: fit-content;
             padding: 10px;
           }
-          .rank {
-            border: 1px solid white;
-            border-radius: 50%;
-            padding: 5px;
-            color: white;
-            font-size: 20px;
-            position: absolute;
-            background: rgba(30, 30, 30, 0.5);
-            top: -10px;
-            left: -10px;
-          }
         `}
       </style>
     </div>
@@ -138,7 +127,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetch(`http://localhost:3000/api/books/${params?.id}`);
   const json = await res.json();
   if (!res.ok || json.status === "ERROR") {
-    return { props: { errorCode: res.status, bestSellers: json } };
+    return { props: { errorCode: res.status, bestSellers: json.results } };
   }
   return { props: { bestSellers: json.results } };
 };

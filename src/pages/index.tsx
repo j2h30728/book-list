@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<{
   const json = await res.json();
 
   if (!res.ok || json.status === "ERROR") {
-    return { props: { errorCode: res.status, bookList: json } };
+    return { props: { errorCode: res.status, bookList: json.results } };
   }
   return { props: { bookList: json.results } };
 };
