@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import Seo from "@/components/Seo";
 import Link from "next/link";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import Error from "next/error";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,7 +10,10 @@ export default function Home({
   bookList,
   errorCode,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(bookList);
+  if (errorCode) {
+    <Error statusCode={errorCode} />;
+  }
+
   return (
     <>
       <Seo title="Home" />
@@ -37,11 +41,11 @@ type BookList = {
 };
 export const getServerSideProps: GetServerSideProps<{
   bookList: BookList[];
-  errorCode?: number | null;
+  errorCode?: number;
 }> = async () => {
   const res = await fetch("https://books-api.nomadcoders.workers.dev/lists");
   if (!res.ok) {
-    return { props: { error: res.status, bookList: [] } };
+    return { props: { errorCode: res.status, bookList: [] } };
   }
 
   const bookListResponse = await res.json();
