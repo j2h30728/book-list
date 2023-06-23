@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -15,6 +16,7 @@ export default function List({
   }
   return (
     <div className="bestSeller">
+      <Seo title={bestSellers.list_name} />
       <div className="title-wrapper">
         <span className="title">{bestSellers.list_name.toUpperCase()}</span>
         <span className="title">BOOKS</span>
