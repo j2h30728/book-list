@@ -44,10 +44,10 @@ export const getServerSideProps: GetServerSideProps<{
   errorCode?: number;
 }> = async () => {
   const res = await fetch("https://books-api.nomadcoders.workers.dev/lists");
-  if (!res.ok) {
-    return { props: { errorCode: res.status, bookList: [] } };
-  }
+  const json = await res.json();
 
-  const bookListResponse = await res.json();
-  return { props: { bookList: bookListResponse.results } };
+  if (!res.ok || json.status === "ERROR") {
+    return { props: { errorCode: res.status, bookList: json } };
+  }
+  return { props: { bookList: json.results } };
 };

@@ -13,6 +13,7 @@ export default function List({
   if (errorCode) {
     return <Error statusCode={errorCode} />;
   }
+  console.log(bestSellers);
   return (
     <>
       <h1>{bestSellers.list_name}</h1>
