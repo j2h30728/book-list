@@ -1,10 +1,7 @@
-import { Inter } from "next/font/google";
 import Seo from "@/components/Seo";
 import Link from "next/link";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Error from "next/error";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({
   bookList,
@@ -17,15 +14,27 @@ export default function Home({
   return (
     <>
       <Seo title="Home" />
-      <main>
-        <h1>THE NEW YORK TIMES BEST SELLER EXPLORER</h1>
-        {bookList.map(book => (
-          <Link
-            key={book.display_name + book.newest_published_date}
-            href={`/list/${book.list_name}`}>
-            {book.list_name}
-          </Link>
-        ))}
+      <main className="container">
+        <h1 className="title">THE NEW YORK TIMES BEST SELLER EXPLORER</h1>
+        <div className="list">
+          {bookList.map(book => (
+            <div
+              className="listName border button"
+              key={book.display_name + book.newest_published_date}>
+              <Link href={`/list/${book.list_name}`}>{book.list_name}</Link>
+            </div>
+          ))}
+        </div>
+        <style jsx>{`
+          .list {
+            padding: 0 15px;
+          }
+          .listName {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 15px 10px 0;
+          }
+        `}</style>
       </main>
     </>
   );
