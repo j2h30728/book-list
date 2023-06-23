@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps<{
   bookList: BookList[];
   errorCode?: number;
 }> = async () => {
-  const res = await fetch("https://books-api.nomadcoders.workers.dev/lists");
+  const res = await fetch("http://localhost:3000/api/books");
   const json = await res.json();
 
   if (!res.ok || json.status === "ERROR") {

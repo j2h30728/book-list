@@ -133,9 +133,7 @@ export const getServerSideProps: GetServerSideProps<{
   bestSellers: BestSellerList;
   errorCode?: number;
 }> = async ({ params }: GetServerSidePropsContext) => {
-  const res = await fetch(
-    `https://books-api.nomadcoders.workers.dev/list?name=${params?.id}`
-  );
+  const res = await fetch(`http://localhost:3000/api/books/${params?.id}`);
   const json = await res.json();
   if (!res.ok || json.status === "ERROR") {
     return { props: { errorCode: res.status, bestSellers: json } };
